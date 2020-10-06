@@ -117,7 +117,7 @@ if (strpos($message, "/vk") === 0) {
 
     $vkLastOnline = date('Y-m-d H:i:s', $vkLastSeen);
 
-    $vkLastOnline = (preg_match("/1970-01-01/", $vkLastOnline) === true) ? "Неизвестно" : $vkLastOnline;
+    $vkLastOnline = (preg_match("/1970-01-01/", $vkLastOnline) === 1) ? "Неизвестно" : $vkLastOnline;
 
     $vkVerified = $response["verified"];
 
