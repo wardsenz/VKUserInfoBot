@@ -119,9 +119,7 @@ if (strpos($message, "/vk") === 0) {
 
     $vkLastOnline = (preg_match("/1970-01-01/", $vkLastOnline) === 1) ? "Неизвестно" : $vkLastOnline;
 
-    $vkVerified = $response["verified"];
-
-    $vkVerified = ($vkVerified == "1") ? "✅" : "❌";
+    $vkVerified = ($response["verified"] === 1) ? "✅" : "❌";
 
     $vkFollowersCount = (empty($response["followers_count"])) ? "Нет данных" : $response["followers_count"];
 
@@ -140,7 +138,7 @@ ID: <code>{$vkId}</code>
 Семейное положение: <b>{$vkRelation}</b>
 Статус: <i>{$vkStatus}</i>
 Последний онлайн: <code>{$vkLastOnline}</code>
-Подтверждена: <b>{$verified}</b>
+Подтверждена: <b>{$vkVerified}</b>
 Сайт: <code>{$vkSite}</code>
 Телефон: <b>{$vkPhone}</b>
 Телефон (дом.): <b>{$vkPhoneHome}</b>
