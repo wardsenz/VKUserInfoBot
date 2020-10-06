@@ -81,6 +81,11 @@ if (strpos($message, "/vk") === 0) {
     
     $vkId = $response["id"];
 
+    if ($response["deactivated"] == "deleted") {
+        curl($api_url."/sendmessage?chat_id=".$chatId.$reply."&parse_mode=html&text=".urlencode("Этот аккаунт удалён.\nID: <code>{$vkId}</code>"));
+        exit;
+    }
+
     $vkFname = $response["first_name"];
 
     $vkLname = $response["last_name"];
