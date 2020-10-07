@@ -1,8 +1,8 @@
 <?php
 
 class Config {
-    private $BotToken;
-    private $VKToken;
+    private $BotToken; // Telegram Bot Token
+    private $VKToken; // VK Token
 
     public function getBotToken(){
         return $this->BotToken;

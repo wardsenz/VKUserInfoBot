@@ -20,13 +20,13 @@ function curl($url) {
     curl_close($ch);
     return $response;
 }
-
-$api_url = "https://api.telegram.org/bot{$config->getBotToken()}";
+$token = empty(getenv('vercel_tg')) ? $config->getBotToken() : getenv('vercel_tg');
+$api_url = "https://api.telegram.org/bot{$token}";
 
 if (strpos($message, "/start") === 0) {
     if ($userId == $chatId) {
         $start = "Привет! Я - бот для мгновенного получения информации о пользователе ВКонтакте по его ID или юзернейму.
-        
+
 Использовать: <code>/vk 1</code> или <code>durov</code>
 
 
@@ -59,7 +59,7 @@ if (strpos($message, "/vk") === 0) {
         curl($api_url."/sendmessage?chat_id=".$chatId.$reply."&text=Укажите правильный ID / имя пользователя.");
         exit;
     }
-    $callToken = $config->getVKToken();
+    $callToken = empty(getenv('vercel_vk')) ? $config->getVKToken() : getenv('vercel_vk');
     $call = "https://api.vk.com/method/users.get?user_ids={$vk_user}&fields=home_town,sex,relation,city,country,bdate,verified,status,online,last_seen,followers_count,site,domain,about,quotes,interests,personal,music,contacts,photo_max&access_token={$callToken}&v=5.122";
     $decoded = json_decode(curl($call), true);
     $response = $decoded["response"][0];
@@ -78,7 +78,7 @@ if (strpos($message, "/vk") === 0) {
         curl($api_url."/sendmessage?chat_id=".$chatId.$reply."&parse_mode=html&text=".$send_results);
         exit;
     }
-    
+
     $vkId = $response["id"];
 
     if ($response["deactivated"] == "deleted") {
@@ -155,7 +155,7 @@ ID: <code>{$vkId}</code>
     $toEditId = $tg_response["result"]["message_id"];
     curl($api_url."/editmessagetext?chat_id=".$chatId."&parse_mode=html&message_id=".$toEditId."&text=".$results);
     }
-    
+
     function getSex($sex){
         switch ($sex){
             case 1:
@@ -170,7 +170,7 @@ ID: <code>{$vkId}</code>
         }
         return $sex;
     }
-    
+
     function getRelations($relation){
         switch ($relation){
             case 0:
