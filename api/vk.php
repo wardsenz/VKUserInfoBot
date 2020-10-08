@@ -32,7 +32,7 @@ if (strpos($message, "/start") === 0) {
 
 Исходный код доступен здесь - https://github.com/wardsenz/VKUserInfoBot
 Пулл-реквесты приветствуются!";
-        curl($api_url."/sendmessage?chat_id=".$chatId."&parse_mode=html&text=".urlencode($start));
+        curl($api_url."/sendmessage?chat_id=".$chatId."&parse_mode=html&disable_web_page_preview=true&text=".urlencode($start));
         exit;
     } else {
         curl($api_url."/sendmessage?chat_id=".$chatId.$reply."&text=Свяжитесь со мной в ЛС для получения помощи!");
